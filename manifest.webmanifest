@@ -1,12 +1,12 @@
 {
-  "name": "Dylan's Academy",
-  "short_name": "Academy",
+  "name": "Horizon",
+  "short_name": "Horizon",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0c0d0f",
   "theme_color": "#0c0d0f",
-  "description": "A quieter space to do better.",
+  "description": "Horizon — a quieter space to do better.",
   "icons": [
     {
       "src": "./icon-192.png",
