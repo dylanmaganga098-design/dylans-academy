@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Dylan's Academy</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#151f31;--muted:#a8b3c7;--accent:#78a9ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f4f7fb;font:16px system-ui,sans-serif}
+header{padding:24px 18px 18px;background:linear-gradient(135deg,#172a46,#101827)}
+h1{margin:0;font-size:27px}header p{margin:6px 0 0;color:#c2cee0}
+main{max-width:760px;margin:auto;padding:16px}
+section{background:var(--panel);padding:16px;border-radius:16px;margin:14px 0}
+h2{font-size:19px;margin:0 0 12px}.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.subject{background:#202d43;border:1px solid #34445e;border-radius:12px;padding:12px;text-align:left;color:white;font-weight:600}
+label{display:block;margin:12px 0 6px;color:#d5deeb}input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #42516a;background:#0e1726;color:white;font:inherit}
+textarea{min-height:110px;resize:vertical}button{border:0;border-radius:10px;background:var(--accent);color:#071326;padding:12px 15px;font-weight:700;font-size:15px;margin-top:10px}
+.note{border-top:1px solid #34445e;padding:12px 0}.muted{color:var(--muted);font-size:13px}.pill{display:inline-block;border:1px solid #42516a;border-radius:99px;padding:4px 9px;font-size:12px;color:#cbd8ec}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row button{margin:0}.delete{background:#39475e;color:white}
+</style>
+</head>
+<body>
+<header><h1>🎓 Dylan's Academy</h1><p>Your personal learning space · Notes saved on this device</p></header>
+<main>
+<section><h2>My subjects</h2><div class="subjects" id="subjects"></div></section>
+<section>
+<h2>Add a revision note</h2>
+<label for="subject">Subject</label><select id="subject"></select>
+<label for="topic">Topic</label><input id="topic" placeholder="e.g. Introduction to Biology">
+<label for="content">Your notes</label><textarea id="content" placeholder="Write or paste your revision notes here..."></textarea>
+<button id="save">Save note</button><p class="muted" id="status" aria-live="polite"></p>
+</section>
+<section><h2>Saved notes</h2><div id="notes"><p class="muted">Your saved notes will appear here.</p></div></section>
+<section><h2>Offline status</h2><p id="connection" class="muted">Checking connection…</p><p class="muted">After the app has been opened once while online, its app files can be cached for offline use. Notes are stored locally in this browser on this device.</p></section>
+</main>
+<script>
+const subjects=["Mathematics","English","Kiswahili","Biology","Chemistry","Physics","History","Computer Studies"];
+const sel=document.querySelector("#subject"), grid=document.querySelector("#subjects");
+subjects.forEach(s=>{let o=document.createElement("option");o.textContent=s;sel.append(o);let b=document.createElement("button");b.className="subject";b.textContent=s;b.onclick=()=>{sel.value=s;document.querySelector("#topic").focus()};grid.append(b)});
+const key="dylans-academy-notes-v1";
+function getNotes(){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch{return []}}
+function render(){let n=getNotes(),el=document.querySelector("#notes");el.innerHTML="";if(!n.length){el.innerHTML='<p class="muted">Your saved notes will appear here.</p>';return}
+n.slice().reverse().forEach((item,revIndex)=>{let index=n.length-1-revIndex,div=document.createElement("div");div.className="note";let title=document.createElement("strong");title.textContent=item.topic||"Untitled topic";let meta=document.createElement("p");meta.className="muted";meta.textContent=item.subject+" · "+item.date;let body=document.createElement("p");body.style.whiteSpace="pre-wrap";body.textContent=item.content;let del=document.createElement("button");del.className="delete";del.textContent="Delete";del.onclick=()=>{let all=getNotes();all.splice(index,1);localStorage.setItem(key,JSON.stringify(all));render()};div.append(title,meta,body,del);el.append(div)})}
+document.querySelector("#save").onclick=()=>{let topic=document.querySelector("#topic").value.trim(),content=document.querySelector("#content").value.trim();if(!topic||!content){document.querySelector("#status").textContent="Please enter both a topic and some notes.";return}
+let all=getNotes();all.push({subject:sel.value,topic,content,date:new Date().toLocaleDateString()});localStorage.setItem(key,JSON.stringify(all));document.querySelector("#topic").value="";document.querySelector("#content").value="";document.querySelector("#status").textContent="Saved on this device.";render()};
+function connection(){document.querySelector("#connection").textContent=navigator.onLine?"You're online. App files will be cached after first load.":"You're offline. If this app was previously opened online, cached pages should remain available."}
+window.addEventListener("online",connection);window.addEventListener("offline",connection);connection();render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>

@@ -1,0 +1,10 @@
+{
+  "name": "Dylan's Academy",
+  "short_name": "Academy",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#101827",
+  "description": "An offline-friendly personal study app."
+}
