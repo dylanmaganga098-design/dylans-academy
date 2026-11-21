@@ -2,51 +2,132 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101827">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0d0f">
+<meta name="description" content="Dylan's Academy — a focused, offline-friendly study space.">
 <link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png">
 <title>Dylan's Academy</title>
 <style>
-:root{color-scheme:dark;--bg:#0b1220;--panel:#151f31;--muted:#a8b3c7;--accent:#78a9ff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f4f7fb;font:16px system-ui,sans-serif}
-header{padding:24px 18px 18px;background:linear-gradient(135deg,#172a46,#101827)}
-h1{margin:0;font-size:27px}header p{margin:6px 0 0;color:#c2cee0}
-main{max-width:760px;margin:auto;padding:16px}
-section{background:var(--panel);padding:16px;border-radius:16px;margin:14px 0}
-h2{font-size:19px;margin:0 0 12px}.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.subject{background:#202d43;border:1px solid #34445e;border-radius:12px;padding:12px;text-align:left;color:white;font-weight:600}
-label{display:block;margin:12px 0 6px;color:#d5deeb}input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #42516a;background:#0e1726;color:white;font:inherit}
-textarea{min-height:110px;resize:vertical}button{border:0;border-radius:10px;background:var(--accent);color:#071326;padding:12px 15px;font-weight:700;font-size:15px;margin-top:10px}
-.note{border-top:1px solid #34445e;padding:12px 0}.muted{color:var(--muted);font-size:13px}.pill{display:inline-block;border:1px solid #42516a;border-radius:99px;padding:4px 9px;font-size:12px;color:#cbd8ec}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row button{margin:0}.delete{background:#39475e;color:white}
+:root{color-scheme:dark;--bg:#0c0d0f;--panel:#17191d;--panel2:#202329;--line:#2b2e34;--text:#f3f4f5;--muted:#a4a8b0;--soft:#d6d9de;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:980px;margin:auto;padding:22px 16px 90px}
+header{display:flex;align-items:center;gap:13px;margin:4px 0 26px}
+.logo{width:48px;height:48px;border-radius:15px;box-shadow:0 5px 20px #0008}
+.brand{font-size:17px;font-weight:750;letter-spacing:.01em}.tag{font-size:12px;color:var(--muted)}
+.top{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}.eyebrow{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.15em}
+h1{font-size:clamp(27px,6vw,38px);line-height:1.12;margin:5px 0 0;letter-spacing:-.04em}h2{font-size:18px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px}
+.stat{font-size:27px;font-weight:750;letter-spacing:-.04em}.muted{color:var(--muted)}.small{font-size:12px}
+.tabs{display:flex;gap:7px;overflow:auto;padding:4px 0 16px;scrollbar-width:none}
+.tabs button,.chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:9px 14px;white-space:nowrap}
+.tabs button.active{background:#f0f1f2;color:#111;border-color:#f0f1f2;font-weight:700}
+.section{display:none}.section.active{display:block}
+.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.subject{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px;text-align:left;color:var(--text)}
+.subject strong{display:block;font-size:14px}.subject span{color:var(--muted);font-size:12px}
+.progress{height:5px;background:#30333a;border-radius:9px;overflow:hidden;margin-top:12px}.progress i{display:block;height:100%;background:#e5e7eb;border-radius:9px}
+label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
+input,select,textarea{width:100%;background:#101215;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}
+textarea{min-height:115px;resize:vertical}
+.primary,.secondary,.danger{border:0;border-radius:12px;padding:11px 15px;font-weight:700}
+.primary{background:#f0f1f2;color:#101114}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.danger{background:#332023;color:#ffdce0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.stack{display:grid;gap:10px}.item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.item h3{font-size:15px;margin:0 0 4px}.item p{margin:5px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.badge{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+footer{text-align:center;color:#777d87;font-size:11px;margin-top:30px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.subjects{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
-<body>
-<header><h1>🎓 Dylan's Academy</h1><p>Your personal learning space · Notes saved on this device</p></header>
-<main>
-<section><h2>My subjects</h2><div class="subjects" id="subjects"></div></section>
-<section>
-<h2>Add a revision note</h2>
-<label for="subject">Subject</label><select id="subject"></select>
-<label for="topic">Topic</label><input id="topic" placeholder="e.g. Introduction to Biology">
-<label for="content">Your notes</label><textarea id="content" placeholder="Write or paste your revision notes here..."></textarea>
-<button id="save">Save note</button><p class="muted" id="status" aria-live="polite"></p>
+<body><main class="app">
+<header><img class="logo" src="./icon-192.png" alt=""><div><div class="brand">Dylan's Academy</div><div class="tag">A quieter space to do better.</div></div></header>
+<div class="top"><div><div class="eyebrow">Your study space</div><h1>Keep moving<br>forward.</h1></div><span class="badge" id="connection">Checking connection</span></div>
+<div class="grid" style="margin-bottom:20px">
+ <div class="card"><div class="muted small">Assessments recorded</div><div class="stat" id="assessmentCount">0</div></div>
+ <div class="card"><div class="muted small">Topics completed</div><div class="stat" id="topicCount">0</div></div>
+ <div class="card"><div class="muted small">Overall average</div><div class="stat" id="average">—</div></div>
+ <div class="card"><div class="muted small">Study activity</div><div class="stat" id="streak">0</div><div class="muted small">active days recorded</div></div>
+</div>
+<nav class="tabs" aria-label="Sections">
+<button class="active" data-tab="home">Overview</button><button data-tab="grades">Grades</button><button data-tab="notes">Notebook</button><button data-tab="topics">Topics</button>
+</nav>
+<section class="section active" id="home">
+ <h2>Your subjects</h2><div class="subjects" id="subjectGrid"></div>
+ <div class="card" style="margin-top:14px"><h2>Quick note</h2><p class="muted small">Capture an idea before it slips away.</p>
+ <label for="quickSubject">Subject</label><select id="quickSubject"></select>
+ <label for="quickTopic">Topic</label><input id="quickTopic" placeholder="e.g. Cell structure">
+ <label for="quickContent">Your notes</label><textarea id="quickContent" placeholder="Write what you want to remember..."></textarea>
+ <div class="actions"><button class="primary" id="saveQuick">Save note</button></div><p class="muted small" id="noteStatus" aria-live="polite"></p></div>
 </section>
-<section><h2>Saved notes</h2><div id="notes"><p class="muted">Your saved notes will appear here.</p></div></section>
-<section><h2>Offline status</h2><p id="connection" class="muted">Checking connection…</p><p class="muted">After the app has been opened once while online, its app files can be cached for offline use. Notes are stored locally in this browser on this device.</p></section>
+<section class="section" id="grades">
+ <div class="card"><h2>Record an assessment</h2>
+ <label for="gradeSubject">Subject</label><select id="gradeSubject"></select>
+ <label for="assessmentName">Assessment name</label><input id="assessmentName" placeholder="e.g. End of topic test">
+ <div class="grid"><div><label for="score">Score achieved</label><input id="score" type="number" min="0" step="any" placeholder="e.g. 36"></div><div><label for="outOf">Total possible</label><input id="outOf" type="number" min="1" step="any" placeholder="e.g. 50"></div></div>
+ <div class="actions"><button class="primary" id="saveAssessment">Save assessment</button></div><p class="muted small" id="gradeStatus" aria-live="polite"></p></div>
+ <h2 style="margin-top:22px">Subject performance</h2><div class="stack" id="gradeSummary"></div>
+ <h2 style="margin-top:22px">Assessment history</h2><div class="stack" id="assessmentHistory"></div>
+ <p class="muted small">Grade bands are not applied automatically: school grading rules can differ. Averages are calculated from the scores you record.</p>
+</section>
+<section class="section" id="notes"><h2>Your notebook</h2><div class="stack" id="notesList"></div></section>
+<section class="section" id="topics">
+ <div class="card"><h2>Track a topic</h2><label for="topicSubject">Subject</label><select id="topicSubject"></select>
+ <label for="topicName">Topic name</label><input id="topicName" placeholder="e.g. Linear equations">
+ <div class="actions"><button class="primary" id="addTopic">Add topic</button></div><p class="muted small" id="topicStatus"></p></div>
+ <h2 style="margin-top:22px">Your learning progress</h2><div class="stack" id="topicList"></div>
+</section>
+<footer>Dylan's Academy · Your progress stays on this device.</footer>
 </main>
 <script>
 const subjects=["Mathematics","English","Kiswahili","Biology","Chemistry","Physics","History","Computer Studies"];
-const sel=document.querySelector("#subject"), grid=document.querySelector("#subjects");
-subjects.forEach(s=>{let o=document.createElement("option");o.textContent=s;sel.append(o);let b=document.createElement("button");b.className="subject";b.textContent=s;b.onclick=()=>{sel.value=s;document.querySelector("#topic").focus()};grid.append(b)});
-const key="dylans-academy-notes-v1";
-function getNotes(){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch{return []}}
-function render(){let n=getNotes(),el=document.querySelector("#notes");el.innerHTML="";if(!n.length){el.innerHTML='<p class="muted">Your saved notes will appear here.</p>';return}
-n.slice().reverse().forEach((item,revIndex)=>{let index=n.length-1-revIndex,div=document.createElement("div");div.className="note";let title=document.createElement("strong");title.textContent=item.topic||"Untitled topic";let meta=document.createElement("p");meta.className="muted";meta.textContent=item.subject+" · "+item.date;let body=document.createElement("p");body.style.whiteSpace="pre-wrap";body.textContent=item.content;let del=document.createElement("button");del.className="delete";del.textContent="Delete";del.onclick=()=>{let all=getNotes();all.splice(index,1);localStorage.setItem(key,JSON.stringify(all));render()};div.append(title,meta,body,del);el.append(div)})}
-document.querySelector("#save").onclick=()=>{let topic=document.querySelector("#topic").value.trim(),content=document.querySelector("#content").value.trim();if(!topic||!content){document.querySelector("#status").textContent="Please enter both a topic and some notes.";return}
-let all=getNotes();all.push({subject:sel.value,topic,content,date:new Date().toLocaleDateString()});localStorage.setItem(key,JSON.stringify(all));document.querySelector("#topic").value="";document.querySelector("#content").value="";document.querySelector("#status").textContent="Saved on this device.";render()};
-function connection(){document.querySelector("#connection").textContent=navigator.onLine?"You're online. App files will be cached after first load.":"You're offline. If this app was previously opened online, cached pages should remain available."}
-window.addEventListener("online",connection);window.addEventListener("offline",connection);connection();render();
+const OLD_KEY="dylans-academy-notes-v1", KEY="dylansAcademyV2";
+let state;
+function fresh(){return {notes:[],assessments:[],topics:[],activity:[]}}
+function load(){
+ try{
+  let saved=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(saved&&typeof saved==="object") state={...fresh(),...saved};
+  else state=fresh();
+  // One-time, non-destructive migration from the original Dylan's Academy notebook.
+  const legacy=JSON.parse(localStorage.getItem(OLD_KEY)||"[]");
+  if(Array.isArray(legacy)&&legacy.length){
+   const known=new Set(state.notes.map(n=>[n.topic,n.subject,n.content,n.date].join("|")));
+   legacy.forEach(n=>{const sig=[n.topic,n.subject,n.content,n.date].join("|");if(!known.has(sig)){state.notes.push(n);known.add(sig)}});
+   saveState();
+  }
+ }catch(e){state=fresh()}
+}
+function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
+function markActivity(){const day=new Date().toISOString().slice(0,10);if(!state.activity.includes(day))state.activity.push(day);saveState()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function fillSelect(id){document.getElementById(id).innerHTML=subjects.map(s=>`<option>${s}</option>`).join("")}
+["quickSubject","gradeSubject","topicSubject"].forEach(fillSelect);
+function pct(a){return a.length?Math.round(a.reduce((x,y)=>x+y.percent,0)/a.length):null}
+function gradeLabel(p){return p===null?"No scores":p>=80?"A":p>=70?"B":p>=60?"C":p>=50?"D":"E"}
+function render(){
+ const assessments=state.assessments, completed=state.topics.filter(t=>t.done).length;
+ document.getElementById("assessmentCount").textContent=assessments.length;
+ document.getElementById("topicCount").textContent=completed;
+ const avg=pct(assessments);document.getElementById("average").textContent=avg===null?"—":avg+"%";
+ document.getElementById("streak").textContent=state.activity.length;
+ document.getElementById("subjectGrid").innerHTML=subjects.map(s=>{let a=assessments.filter(x=>x.subject===s),p=pct(a),t=state.topics.filter(x=>x.subject===s),done=t.filter(x=>x.done).length;return `<div class="subject"><strong>${esc(s)}</strong><span>${p===null?"No grades yet":p+"% average"} · ${done}/${t.length} topics</span><div class="progress"><i style="width:${t.length?done/t.length*100:0}%"></i></div></div>`}).join("");
+ document.getElementById("gradeSummary").innerHTML=subjects.map(s=>{let a=assessments.filter(x=>x.subject===s),p=pct(a);return `<div class="item"><h3>${esc(s)}</h3><p class="muted small">${p===null?"No assessments recorded":p+"% average · provisional band "+gradeLabel(p)}</p></div>`}).join("");
+ document.getElementById("assessmentHistory").innerHTML=assessments.length?assessments.slice().reverse().map((a,i)=>`<div class="item"><h3>${esc(a.name)} <span class="badge">${esc(a.subject)}</span></h3><p>${a.score}/${a.outOf} · ${a.percent}%</p><p class="muted small">${esc(a.date)}</p><button class="danger" data-delete-assessment="${assessments.length-1-i}">Delete</button></div>`).join(""):'<div class="empty">Your assessments will appear here.</div>';
+ document.getElementById("notesList").innerHTML=state.notes.length?state.notes.slice().reverse().map((n,i)=>`<div class="item"><h3>${esc(n.topic||"Untitled topic")}</h3><span class="badge">${esc(n.subject||"")}</span><p class="muted small">${esc(n.date||"")}</p><p>${esc(n.content)}</p><button class="danger" data-delete-note="${state.notes.length-1-i}">Delete</button></div>`).join(""):'<div class="empty">Your saved notes will appear here.</div>';
+ document.getElementById("topicList").innerHTML=state.topics.length?state.topics.map((t,i)=>`<div class="item"><label style="display:flex;gap:9px;align-items:center;color:var(--text);margin:0"><input style="width:auto" type="checkbox" data-topic="${i}" ${t.done?"checked":""}> <span>${esc(t.name)} <span class="badge">${esc(t.subject)}</span></span></label></div>`).join(""):'<div class="empty">Add topics you want to work through.</div>';
+}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab))}));
+document.getElementById("saveQuick").onclick=()=>{let topic=quickTopic.value.trim(),content=quickContent.value.trim();if(!topic||!content){noteStatus.textContent="Enter both a topic and some notes.";return}state.notes.push({subject:quickSubject.value,topic,content,date:new Date().toLocaleDateString()});markActivity();quickTopic.value="";quickContent.value="";noteStatus.textContent="Saved on this device.";render()};
+document.getElementById("saveAssessment").onclick=()=>{let score=Number(document.getElementById("score").value),outOf=Number(document.getElementById("outOf").value),name=document.getElementById("assessmentName").value.trim();if(!name||!Number.isFinite(score)||!Number.isFinite(outOf)||outOf<=0||score<0||score>outOf){gradeStatus.textContent="Enter a name and valid scores (score cannot exceed total).";return}state.assessments.push({subject:gradeSubject.value,name,score,outOf,percent:Math.round(score/outOf*1000)/10,date:new Date().toLocaleDateString()});markActivity();assessmentName.value="";document.getElementById("score").value="";document.getElementById("outOf").value="";gradeStatus.textContent="Assessment saved.";render()};
+document.getElementById("addTopic").onclick=()=>{let name=topicName.value.trim();if(!name){topicStatus.textContent="Enter a topic name.";return}state.topics.push({subject:topicSubject.value,name,done:false});saveState();topicName.value="";topicStatus.textContent="Topic added.";render()};
+document.addEventListener("click",e=>{if(e.target.dataset.deleteNote!==undefined){state.notes.splice(Number(e.target.dataset.deleteNote),1);saveState();render()}if(e.target.dataset.deleteAssessment!==undefined){state.assessments.splice(Number(e.target.dataset.deleteAssessment),1);saveState();render()}});
+document.addEventListener("change",e=>{if(e.target.dataset.topic!==undefined){let t=state.topics[Number(e.target.dataset.topic)];t.done=e.target.checked;if(t.done)markActivity();else saveState();render()}});
+function connection(){document.getElementById("connection").textContent=navigator.onLine?"Online · offline-ready":"Offline mode"}
+window.addEventListener("online",connection);window.addEventListener("offline",connection);
+load();render();connection();
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
-</script>
-</body></html>
+</script></body></html>
