@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,167 +10,515 @@
 <link rel="icon" href="./icon-192.png">
 <title>Horizon</title>
 <style>
-:root{color-scheme:dark;--bg:#0c0d0f;--panel:#17191d;--panel2:#202329;--line:#2b2e34;--text:#f3f4f5;--muted:#a4a8b0;--soft:#d6d9de;--radius:18px}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}
+:root{color-scheme:dark;--bg:#0c0d0f;--panel:#17191d;--panel2:#202329;--line:#2b2e34;--text:#f3f4f5;--muted:#a4a8b0;--radius:18px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 .app{max-width:980px;margin:auto;padding:22px 16px 90px}
 header{display:flex;align-items:center;gap:13px;margin:4px 0 26px}
 .logo{width:48px;height:48px;border-radius:15px;box-shadow:0 5px 20px #0008}
-.brand{font-size:17px;font-weight:750;letter-spacing:.01em}.tag{font-size:12px;color:var(--muted)}
-.top{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}.eyebrow{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.15em}
-h1{font-size:clamp(27px,6vw,38px);line-height:1.12;margin:5px 0 0;letter-spacing:-.04em}h2{font-size:18px;margin:0 0 14px}
+.brand{font-size:17px;font-weight:750}
+.tag{font-size:12px;color:var(--muted)}
+.top{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}
+.eyebrow{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.15em}
+h1{font-size:clamp(27px,6vw,38px);line-height:1.12;margin:5px 0 0}
+h2{font-size:18px;margin:0 0 14px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px}
-.stat{font-size:27px;font-weight:750;letter-spacing:-.04em}.muted{color:var(--muted)}.small{font-size:12px}
+.stat{font-size:27px;font-weight:750}
+.muted{color:var(--muted)}
+.small{font-size:12px}
 .tabs{display:flex;gap:7px;overflow:auto;padding:4px 0 16px;scrollbar-width:none}
 .tabs button,.chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:9px 14px;white-space:nowrap}
 .tabs button.active{background:#f0f1f2;color:#111;border-color:#f0f1f2;font-weight:700}
-.section{display:none}.section.active{display:block}
+.section{display:none}
+.section.active{display:block}
 .subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.subject{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px;text-align:left;color:var(--text)}
-.subject strong{display:block;font-size:14px}.subject span{color:var(--muted);font-size:12px}
-.progress{height:5px;background:#30333a;border-radius:9px;overflow:hidden;margin-top:12px}.progress i{display:block;height:100%;background:#e5e7eb;border-radius:9px}
+.subject{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px;color:var(--text)}
+.subject strong{display:block;font-size:14px}
+.subject span{color:var(--muted);font-size:12px}
+.progress{height:5px;background:#30333a;border-radius:9px;overflow:hidden;margin-top:12px}
+.progress i{display:block;height:100%;background:#e5e7eb}
 label{display:block;font-size:12px;color:var(--muted);margin:12px 0 6px}
 input,select,textarea{width:100%;background:#101215;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}
-textarea{min-height:115px;resize:vertical}
+textarea{min-height:100px;resize:vertical}
 .primary,.secondary,.danger{border:0;border-radius:12px;padding:11px 15px;font-weight:700}
-.primary{background:#f0f1f2;color:#101114}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.danger{background:#332023;color:#ffdce0}
+.primary{background:#f0f1f2;color:#101114}
+.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.danger{background:#332023;color:#ffdce0}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.stack{display:grid;gap:10px}.item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
-.item h3{font-size:15px;margin:0 0 4px}.item p{margin:5px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.stack{display:grid;gap:10px}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.item h3{font-size:15px;margin:0 0 4px}
+.item p{margin:5px 0;white-space:pre-wrap;overflow-wrap:anywhere}
 .badge{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
 .empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
-.chatlog{display:grid;gap:10px;max-height:360px;overflow:auto;margin:14px 0}.bubble{padding:12px 14px;border-radius:15px;max-width:92%;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.learner{background:#30343b;margin-left:auto}.bubble.savannah{background:#202329;border:1px solid var(--line)}.growthbar{height:7px;background:#30333a;border-radius:8px;overflow:hidden;margin-top:7px}.growthbar i{display:block;height:100%;background:#e5e7eb}
+.chatlog{display:grid;gap:10px;max-height:420px;overflow:auto;margin:14px 0;padding:3px}
+.bubble{padding:12px 14px;border-radius:15px;max-width:92%;white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble.learner{background:#30343b;margin-left:auto}
+.bubble.savannah{background:#202329;border:1px solid var(--line)}
+.growthbar{height:7px;background:#30333a;border-radius:8px;overflow:hidden;margin-top:7px}
+.growthbar i{display:block;height:100%;background:#e5e7eb}
 footer{text-align:center;color:#777d87;font-size:11px;margin-top:30px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.subjects{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
-<body><main class="app">
-<header><img class="logo" src="./icon-192.png" alt=""><div><div class="brand">Horizon</div><div class="tag">A quieter space to do better.</div></div></header>
-<div class="top"><div><div class="eyebrow">Your study space</div><h1>Keep moving<br>forward.</h1></div><span class="badge" id="connection">Checking connection</span></div>
-<div class="grid" style="margin-bottom:20px">
- <div class="card"><div class="muted small">Assessments recorded</div><div class="stat" id="assessmentCount">0</div></div>
- <div class="card"><div class="muted small">Topics completed</div><div class="stat" id="topicCount">0</div></div>
- <div class="card"><div class="muted small">Overall average</div><div class="stat" id="average">—</div></div>
- <div class="card"><div class="muted small">Study activity</div><div class="stat" id="streak">0</div><div class="muted small">active days recorded</div></div>
+<body>
+<main class="app">
+<header>
+<img class="logo" src="./icon-192.png" alt="">
+<div><div class="brand">Horizon</div><div class="tag">A quieter space to do better.</div></div>
+</header>
+
+<div class="top">
+<div><div class="eyebrow">Your study space</div><h1>Keep moving<br>forward.</h1></div>
+<span class="badge" id="connection">Checking connection</span>
 </div>
+
+<div class="grid" style="margin-bottom:20px">
+<div class="card"><div class="muted small">Assessments recorded</div><div class="stat" id="assessmentCount">0</div></div>
+<div class="card"><div class="muted small">Topics completed</div><div class="stat" id="topicCount">0</div></div>
+<div class="card"><div class="muted small">Overall average</div><div class="stat" id="average">—</div></div>
+<div class="card"><div class="muted small">Study activity</div><div class="stat" id="streak">0</div><div class="muted small">active days recorded</div></div>
+</div>
+
 <nav class="tabs" aria-label="Sections">
-<button class="active" data-tab="home">Overview</button><button data-tab="grades">Grades</button><button data-tab="notes">Notebook</button><button data-tab="topics">Topics</button><button data-tab="savannah">Savannah</button>
+<button class="active" data-tab="home">Overview</button>
+<button data-tab="grades">Grades</button>
+<button data-tab="notes">Notebook</button>
+<button data-tab="topics">Topics</button>
+<button data-tab="savannah">Savannah</button>
 </nav>
+
 <section class="section active" id="home">
- <h2>Your subjects</h2><div class="subjects" id="subjectGrid"></div>
- <div class="card" style="margin-top:14px"><h2>Quick note</h2><p class="muted small">Capture an idea before it slips away.</p>
- <label for="quickSubject">Subject</label><select id="quickSubject"></select>
- <label for="quickTopic">Topic</label><input id="quickTopic" placeholder="e.g. Cell structure">
- <label for="quickContent">Your notes</label><textarea id="quickContent" placeholder="Write what you want to remember..."></textarea>
- <div class="actions"><button class="primary" id="saveQuick">Save note</button></div><p class="muted small" id="noteStatus" aria-live="polite"></p></div>
+<h2>Your subjects</h2>
+<div class="subjects" id="subjectGrid"></div>
+<div class="card" style="margin-top:14px">
+<h2>Quick note</h2>
+<p class="muted small">Capture an idea before it slips away.</p>
+<label for="quickSubject">Subject</label><select id="quickSubject"></select>
+<label for="quickTopic">Topic</label><input id="quickTopic" placeholder="e.g. Cell structure">
+<label for="quickContent">Your notes</label><textarea id="quickContent" placeholder="Write what you want to remember..."></textarea>
+<div class="actions"><button class="primary" id="saveQuick">Save note</button></div>
+<p class="muted small" id="noteStatus" aria-live="polite"></p>
+</div>
 </section>
+
 <section class="section" id="grades">
- <div class="card"><h2>Record an assessment</h2>
- <label for="gradeSubject">Subject</label><select id="gradeSubject"></select>
- <label for="assessmentName">Assessment name</label><input id="assessmentName" placeholder="e.g. End of topic test">
- <div class="grid"><div><label for="score">Score achieved</label><input id="score" type="number" min="0" step="any" placeholder="e.g. 36"></div><div><label for="outOf">Total possible</label><input id="outOf" type="number" min="1" step="any" placeholder="e.g. 50"></div></div>
- <div class="actions"><button class="primary" id="saveAssessment">Save assessment</button></div><p class="muted small" id="gradeStatus" aria-live="polite"></p></div>
- <h2 style="margin-top:22px">Subject performance</h2><div class="stack" id="gradeSummary"></div>
- <h2 style="margin-top:22px">Assessment history</h2><div class="stack" id="assessmentHistory"></div>
- <p class="muted small">Grade bands are not applied automatically: school grading rules can differ. Averages are calculated from the scores you record.</p>
+<div class="card">
+<h2>Record an assessment</h2>
+<label for="gradeSubject">Subject</label><select id="gradeSubject"></select>
+<label for="assessmentName">Assessment name</label><input id="assessmentName" placeholder="e.g. End of topic test">
+<div class="grid">
+<div><label for="score">Score achieved</label><input id="score" type="number" min="0" step="any" placeholder="e.g. 36"></div>
+<div><label for="outOf">Total possible</label><input id="outOf" type="number" min="1" step="any" placeholder="e.g. 50"></div>
+</div>
+<div class="actions"><button class="primary" id="saveAssessment">Save assessment</button></div>
+<p class="muted small" id="gradeStatus" aria-live="polite"></p>
+</div>
+<h2 style="margin-top:22px">Subject performance</h2><div class="stack" id="gradeSummary"></div>
+<h2 style="margin-top:22px">Assessment history</h2><div class="stack" id="assessmentHistory"></div>
+<p class="muted small">Grade bands are provisional. School grading rules can differ.</p>
 </section>
-<section class="section" id="notes"><h2>Your notebook</h2><div class="stack" id="notesList"></div></section>
+
+<section class="section" id="notes">
+<h2>Your notebook</h2><div class="stack" id="notesList"></div>
+</section>
+
 <section class="section" id="topics">
- <div class="card"><h2>Track a topic</h2><label for="topicSubject">Subject</label><select id="topicSubject"></select>
- <label for="topicName">Topic name</label><input id="topicName" placeholder="e.g. Linear equations">
- <div class="actions"><button class="primary" id="addTopic">Add topic</button></div><p class="muted small" id="topicStatus"></p></div>
- <h2 style="margin-top:22px">Your learning progress</h2><div class="stack" id="topicList"></div>
+<div class="card">
+<h2>Track a topic</h2>
+<label for="topicSubject">Subject</label><select id="topicSubject"></select>
+<label for="topicName">Topic name</label><input id="topicName" placeholder="e.g. Linear equations">
+<div class="actions"><button class="primary" id="addTopic">Add topic</button></div>
+<p class="muted small" id="topicStatus"></p>
+</div>
+<h2 style="margin-top:22px">Your learning progress</h2><div class="stack" id="topicList"></div>
 </section>
+
 <section class="section" id="savannah">
- <div class="card" style="margin-bottom:14px">
-  <div style="display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:14px;background:#30343b;display:grid;place-items:center;font-size:22px">🌱</div><div><h2 style="margin:0">Savannah</h2><div class="muted small">Your learning companion · grows with you</div></div></div>
-  <p class="muted small" style="margin:13px 0 0">Savannah adapts to the learner's progress: supportive while teaching, more challenging during practice, and patient when a topic needs another explanation.</p>
-  <div class="badge" style="display:inline-block;margin-top:10px">Offline preview · AI connection not yet enabled</div>
- </div>
- <div class="card" style="margin-bottom:14px"><h2>Your learning profile</h2>
-  <label for="learnerLevel">Current class / level (optional)</label><input id="learnerLevel" placeholder="e.g. Form 2">
-  <label for="learnerGoal">Your learning goal</label><input id="learnerGoal" placeholder="e.g. Understand Biology and improve exam confidence">
-  <div class="actions"><button class="primary" id="saveProfile">Save learning profile</button></div><p class="muted small" id="profileStatus" aria-live="polite"></p>
- </div>
- <div class="card" style="margin-bottom:14px"><h2>Growth profile</h2><p class="muted small">A snapshot based on the grades and topics you record in the Academy.</p><div id="growthSummary" class="stack"></div></div>
- <div class="card"><h2>Ask Savannah</h2><p class="muted small">You can write and save questions offline. Live AI tutoring will be connected in a later development step.</p>
-  <label for="savannahSubject">Subject</label><select id="savannahSubject"></select>
-  <label for="savannahPrompt">What would you like help with?</label><textarea id="savannahPrompt" placeholder="Write a question or a topic you want to understand..."></textarea>
-  <div class="actions"><button class="primary" id="saveQuestion">Save question for Savannah</button></div><p class="muted small" id="savannahStatus" aria-live="polite"></p>
-  <h2 style="margin-top:20px">Saved questions</h2><div id="savannahQueue" class="stack"></div>
- </div>
+<div class="card" style="margin-bottom:14px">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:44px;height:44px;border-radius:14px;background:#30343b;display:grid;place-items:center;font-size:22px">🌱</div>
+<div><h2 style="margin:0">Savannah</h2><div class="muted small">Your learning companion · grows with you</div></div>
+</div>
+<p class="muted small" style="margin:13px 0 0">Patient when teaching, challenging when testing, and always ready to help you understand.</p>
+<span class="badge" id="savannahConnection" style="display:inline-block;margin-top:10px">Checking AI connection...</span>
+</div>
+
+<div class="card" style="margin-bottom:14px">
+<h2>Your learning profile</h2>
+<label for="learnerLevel">Current class / level (optional)</label>
+<input id="learnerLevel" placeholder="e.g. Form 2">
+<label for="learnerGoal">Your learning goal</label>
+<input id="learnerGoal" placeholder="e.g. Understand Biology and improve exam confidence">
+<div class="actions"><button class="primary" id="saveProfile">Save learning profile</button></div>
+<p class="muted small" id="profileStatus" aria-live="polite"></p>
+</div>
+
+<div class="card" style="margin-bottom:14px">
+<h2>Growth profile</h2>
+<p class="muted small">A snapshot based on the grades and topics you record.</p>
+<div id="growthSummary" class="stack"></div>
+</div>
+
+<div class="card" style="margin-bottom:14px">
+<h2>Ask Savannah</h2>
+<p class="muted small">Your personal AI tutor. Ask questions, explore ideas and grow your understanding.</p>
+
+<label for="savannahSubject">Subject</label>
+<select id="savannahSubject"></select>
+
+<div class="chatlog" id="savannahChatLog" aria-live="polite">
+<div class="bubble savannah">Hello! I'm Savannah. 🌱 What would you like us to learn today?</div>
+</div>
+
+<label for="savannahPrompt">Your message</label>
+<textarea id="savannahPrompt" placeholder="Ask Savannah about something you're studying..."></textarea>
+
+<div class="actions">
+<button class="primary" id="sendSavannah">Send message</button>
+<button class="secondary" id="saveQuestion">Save question offline</button>
+</div>
+<p class="muted small" id="savannahStatus" aria-live="polite"></p>
+</div>
+
+<div class="card">
+<h2>Saved questions</h2>
+<div id="savannahQueue" class="stack"></div>
+</div>
 </section>
+
 <footer>Horizon · Your progress stays on this device.</footer>
 </main>
+
 <script>
 const subjects=["Mathematics","English","Kiswahili","Biology","Chemistry","Physics","History","Computer Studies"];
-const OLD_KEY="dylans-academy-notes-v1", KEY="dylansAcademyV2";
+const OLD_KEY="dylans-academy-notes-v1";
+const KEY="dylansAcademyV2";
+const SAVANNAH_API="https://horizon-savannah-ai.dylanmaganga098.workers.dev";
 let state;
-function fresh(){return {notes:[],assessments:[],topics:[],activity:[],savannahMessages:[],learnerProfile:{level:"",goal:""}}}
+
+function fresh(){
+return {notes:[],assessments:[],topics:[],activity:[],savannahMessages:[],learnerProfile:{level:"",goal:""}};
+}
+
 function load(){
- try{
-  let saved=JSON.parse(localStorage.getItem(KEY)||"null");
-  if(saved&&typeof saved==="object") state={...fresh(),...saved};
-  else state=fresh();
-  state.savannahMessages=Array.isArray(state.savannahMessages)?state.savannahMessages:[];
-  state.learnerProfile=state.learnerProfile||{level:"",goal:""};
-  // One-time, non-destructive migration from the original Dylan's Academy notebook.
-  const legacy=JSON.parse(localStorage.getItem(OLD_KEY)||"[]");
-  if(Array.isArray(legacy)&&legacy.length){
-   const known=new Set(state.notes.map(n=>[n.topic,n.subject,n.content,n.date].join("|")));
-   legacy.forEach(n=>{const sig=[n.topic,n.subject,n.content,n.date].join("|");if(!known.has(sig)){state.notes.push(n);known.add(sig)}});
-   saveState();
-  }
- }catch(e){state=fresh()}
+try{
+const saved=JSON.parse(localStorage.getItem(KEY)||"null");
+state=saved&&typeof saved==="object"?{...fresh(),...saved}:fresh();
+state.savannahMessages=Array.isArray(state.savannahMessages)?state.savannahMessages:[];
+state.learnerProfile=state.learnerProfile||{level:"",goal:""};
+const legacy=JSON.parse(localStorage.getItem(OLD_KEY)||"[]");
+if(Array.isArray(legacy)&&legacy.length){
+const known=new Set(state.notes.map(n=>[n.topic,n.subject,n.content,n.date].join("|")));
+legacy.forEach(n=>{
+const sig=[n.topic,n.subject,n.content,n.date].join("|");
+if(!known.has(sig)){state.notes.push(n);known.add(sig);}
+});
+saveState();
 }
-function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
-function markActivity(){const day=new Date().toISOString().slice(0,10);if(!state.activity.includes(day))state.activity.push(day);saveState()}
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function fillSelect(id){document.getElementById(id).innerHTML=subjects.map(s=>`<option>${s}</option>`).join("")}
+}catch(e){state=fresh();}
+}
+
+function saveState(){localStorage.setItem(KEY,JSON.stringify(state));}
+function markActivity(){
+const day=new Date().toISOString().slice(0,10);
+if(!state.activity.includes(day))state.activity.push(day);
+saveState();
+}
+function esc(s){
+return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function fillSelect(id){
+document.getElementById(id).innerHTML=subjects.map(s=>`<option>${s}</option>`).join("");
+}
 ["quickSubject","gradeSubject","topicSubject","savannahSubject"].forEach(fillSelect);
-function pct(a){return a.length?Math.round(a.reduce((x,y)=>x+y.percent,0)/a.length):null}
-function gradeLabel(p){return p===null?"No scores":p>=80?"A":p>=70?"B":p>=60?"C":p>=50?"D":"E"}
+
+function pct(a){
+return a.length?Math.round(a.reduce((x,y)=>x+y.percent,0)/a.length):null;
+}
+function gradeLabel(p){
+return p===null?"No scores":p>=80?"A":p>=70?"B":p>=60?"C":p>=50?"D":"E";
+}
+
 function render(){
- const assessments=state.assessments, completed=state.topics.filter(t=>t.done).length;
- document.getElementById("assessmentCount").textContent=assessments.length;
- document.getElementById("topicCount").textContent=completed;
- const avg=pct(assessments);document.getElementById("average").textContent=avg===null?"—":avg+"%";
- document.getElementById("streak").textContent=state.activity.length;
- document.getElementById("subjectGrid").innerHTML=subjects.map(s=>{let a=assessments.filter(x=>x.subject===s),p=pct(a),t=state.topics.filter(x=>x.subject===s),done=t.filter(x=>x.done).length;return `<div class="subject"><strong>${esc(s)}</strong><span>${p===null?"No grades yet":p+"% average"} · ${done}/${t.length} topics</span><div class="progress"><i style="width:${t.length?done/t.length*100:0}%"></i></div></div>`}).join("");
- document.getElementById("gradeSummary").innerHTML=subjects.map(s=>{let a=assessments.filter(x=>x.subject===s),p=pct(a);return `<div class="item"><h3>${esc(s)}</h3><p class="muted small">${p===null?"No assessments recorded":p+"% average · provisional band "+gradeLabel(p)}</p></div>`}).join("");
- document.getElementById("assessmentHistory").innerHTML=assessments.length?assessments.slice().reverse().map((a,i)=>`<div class="item"><h3>${esc(a.name)} <span class="badge">${esc(a.subject)}</span></h3><p>${a.score}/${a.outOf} · ${a.percent}%</p><p class="muted small">${esc(a.date)}</p><button class="danger" data-delete-assessment="${assessments.length-1-i}">Delete</button></div>`).join(""):'<div class="empty">Your assessments will appear here.</div>';
- document.getElementById("notesList").innerHTML=state.notes.length?state.notes.slice().reverse().map((n,i)=>`<div class="item"><h3>${esc(n.topic||"Untitled topic")}</h3><span class="badge">${esc(n.subject||"")}</span><p class="muted small">${esc(n.date||"")}</p><p>${esc(n.content)}</p><button class="danger" data-delete-note="${state.notes.length-1-i}">Delete</button></div>`).join(""):'<div class="empty">Your saved notes will appear here.</div>';
- document.getElementById("topicList").innerHTML=state.topics.length?state.topics.map((t,i)=>`<div class="item"><label style="display:flex;gap:9px;align-items:center;color:var(--text);margin:0"><input style="width:auto" type="checkbox" data-topic="${i}" ${t.done?"checked":""}> <span>${esc(t.name)} <span class="badge">${esc(t.subject)}</span></span></label></div>`).join(""):'<div class="empty">Add topics you want to work through.</div>';
+const assessments=state.assessments;
+const completed=state.topics.filter(t=>t.done).length;
+document.getElementById("assessmentCount").textContent=assessments.length;
+document.getElementById("topicCount").textContent=completed;
+const avg=pct(assessments);
+document.getElementById("average").textContent=avg===null?"—":avg+"%";
+document.getElementById("streak").textContent=state.activity.length;
+
+document.getElementById("subjectGrid").innerHTML=subjects.map(s=>{
+const a=assessments.filter(x=>x.subject===s);
+const p=pct(a);
+const t=state.topics.filter(x=>x.subject===s);
+const done=t.filter(x=>x.done).length;
+return `<div class="subject"><strong>${esc(s)}</strong><span>${p===null?"No grades yet":p+"% average"} · ${done}/${t.length} topics</span><div class="progress"><i style="width:${t.length?done/t.length*100:0}%"></i></div></div>`;
+}).join("");
+
+document.getElementById("gradeSummary").innerHTML=subjects.map(s=>{
+const p=pct(assessments.filter(x=>x.subject===s));
+return `<div class="item"><h3>${esc(s)}</h3><p class="muted small">${p===null?"No assessments recorded":p+"% average · provisional band "+gradeLabel(p)}</p></div>`;
+}).join("");
+
+document.getElementById("assessmentHistory").innerHTML=assessments.length?
+assessments.slice().reverse().map((a,i)=>`
+<div class="item">
+<h3>${esc(a.name)} <span class="badge">${esc(a.subject)}</span></h3>
+<p>${a.score}/${a.outOf} · ${a.percent}%</p>
+<p class="muted small">${esc(a.date)}</p>
+<button class="danger" data-delete-assessment="${assessments.length-1-i}">Delete</button>
+</div>`).join(""):'<div class="empty">Your assessments will appear here.</div>';
+
+document.getElementById("notesList").innerHTML=state.notes.length?
+state.notes.slice().reverse().map((n,i)=>`
+<div class="item">
+<h3>${esc(n.topic||"Untitled topic")}</h3>
+<span class="badge">${esc(n.subject||"")}</span>
+<p class="muted small">${esc(n.date||"")}</p>
+<p>${esc(n.content)}</p>
+<button class="danger" data-delete-note="${state.notes.length-1-i}">Delete</button>
+</div>`).join(""):'<div class="empty">Your saved notes will appear here.</div>';
+
+document.getElementById("topicList").innerHTML=state.topics.length?
+state.topics.map((t,i)=>`
+<div class="item">
+<label style="display:flex;gap:9px;align-items:center;color:var(--text);margin:0">
+<input style="width:auto" type="checkbox" data-topic="${i}" ${t.done?"checked":""}>
+<span>${esc(t.name)} <span class="badge">${esc(t.subject)}</span></span>
+</label>
+</div>`).join(""):'<div class="empty">Add topics you want to work through.</div>';
 }
+
 function renderSavannah(){
- const profile=state.learnerProfile||{level:"",goal:""};
- document.getElementById("learnerLevel").value=profile.level||"";
- document.getElementById("learnerGoal").value=profile.goal||"";
- const growth=subjects.map(subject=>{const a=state.assessments.filter(x=>x.subject===subject),p=pct(a),t=state.topics.filter(x=>x.subject===subject),done=t.filter(x=>x.done).length;const progress=t.length?Math.round(done/t.length*100):0;return `<div class="item"><h3>${esc(subject)}</h3><p class="muted small">${p===null?"No assessment data yet":`Average: ${p}%`} · ${done}/${t.length} topics completed</p><div class="growthbar"><i style="width:${progress}%"></i></div></div>`}).join("");
- document.getElementById("growthSummary").innerHTML=growth;
- const queue=state.savannahMessages;
- document.getElementById("savannahQueue").innerHTML=queue.length?queue.slice().reverse().map((m,i)=>`<div class="item"><h3>${esc(m.subject)} <span class="badge">Saved question</span></h3><p>${esc(m.text)}</p><p class="muted small">${esc(m.date)}</p><button class="danger" data-delete-savannah="${queue.length-1-i}">Delete</button></div>`).join(""):'<div class="empty">Your saved questions will appear here.</div>';
+const profile=state.learnerProfile||{level:"",goal:""};
+document.getElementById("learnerLevel").value=profile.level||"";
+document.getElementById("learnerGoal").value=profile.goal||"";
+
+document.getElementById("growthSummary").innerHTML=subjects.map(subject=>{
+const a=state.assessments.filter(x=>x.subject===subject);
+const p=pct(a);
+const t=state.topics.filter(x=>x.subject===subject);
+const done=t.filter(x=>x.done).length;
+const progress=t.length?Math.round(done/t.length*100):0;
+return `<div class="item"><h3>${esc(subject)}</h3><p class="muted small">${p===null?"No assessment data yet":"Average: "+p+"%"} · ${done}/${t.length} topics completed</p><div class="growthbar"><i style="width:${progress}%"></i></div></div>`;
+}).join("");
+
+const queue=state.savannahMessages;
+document.getElementById("savannahQueue").innerHTML=queue.length?
+queue.slice().reverse().map((m,i)=>`
+<div class="item">
+<h3>${esc(m.subject)} <span class="badge">Saved question</span></h3>
+<p>${esc(m.text)}</p>
+<p class="muted small">${esc(m.date)}</p>
+<button class="danger" data-delete-savannah="${queue.length-1-i}">Delete</button>
+</div>`).join(""):'<div class="empty">Your saved questions will appear here.</div>';
 }
-document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{function renderSavannah(){
- const profile=state.learnerProfile||{level:"",goal:""};
- document.getElementById("learnerLevel").value=profile.level||"";
- document.getElementById("learnerGoal").value=profile.goal||"";
- const growth=subjects.map(subject=>{const a=state.assessments.filter(x=>x.subject===subject),p=pct(a),t=state.topics.filter(x=>x.subject===subject),done=t.filter(x=>x.done).length;const progress=t.length?Math.round(done/t.length*100):0;return `<div class="item"><h3>${esc(subject)}</h3><p class="muted small">${p===null?"No assessment data yet":`Average: ${p}%`} · ${done}/${t.length} topics completed</p><div class="growthbar"><i style="width:${progress}%"></i></div></div>`}).join("");
- document.getElementById("growthSummary").innerHTML=growth;
- const queue=state.savannahMessages;
- document.getElementById("savannahQueue").innerHTML=queue.length?queue.slice().reverse().map((m,i)=>`<div class="item"><h3>${esc(m.subject)} <span class="badge">Saved question</span></h3><p>${esc(m.text)}</p><p class="muted small">${esc(m.date)}</p><button class="danger" data-delete-savannah="${queue.length-1-i}">Delete</button></div>`).join(""):'<div class="empty">Your saved questions will appear here.</div>';
+
+function addChatMessage(message,who){
+const log=document.getElementById("savannahChatLog");
+const bubble=document.createElement("div");
+bubble.className="bubble "+who;
+bubble.textContent=message;
+log.appendChild(bubble);
+log.scrollTop=log.scrollHeight;
 }
-document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab))}));
-document.getElementById("saveQuick").onclick=()=>{let topic=quickTopic.value.trim(),content=quickContent.value.trim();if(!topic||!content){noteStatus.textContent="Enter both a topic and some notes.";return}state.notes.push({subject:quickSubject.value,topic,content,date:new Date().toLocaleDateString()});markActivity();quickTopic.value="";quickContent.value="";noteStatus.textContent="Saved on this device.";render()};
-document.getElementById("saveAssessment").onclick=()=>{let score=Number(document.getElementById("score").value),outOf=Number(document.getElementById("outOf").value),name=document.getElementById("assessmentName").value.trim();if(!name||!Number.isFinite(score)||!Number.isFinite(outOf)||outOf<=0||score<0||score>outOf){gradeStatus.textContent="Enter a name and valid scores (score cannot exceed total).";return}state.assessments.push({subject:gradeSubject.value,name,score,outOf,percent:Math.round(score/outOf*1000)/10,date:new Date().toLocaleDateString()});markActivity();assessmentName.value="";document.getElementById("score").value="";document.getElementById("outOf").value="";gradeStatus.textContent="Assessment saved.";render()};
-document.getElementById("saveProfile").onclick=()=>{state.learnerProfile={level:document.getElementById("learnerLevel").value.trim(),goal:document.getElementById("learnerGoal").value.trim()};saveState();document.getElementById("profileStatus").textContent="Learning profile saved on this device.";};
-document.getElementById("saveQuestion").onclick=()=>{const text=document.getElementById("savannahPrompt").value.trim();if(!text){document.getElementById("savannahStatus").textContent="Write a question first.";return}state.savannahMessages.push({subject:document.getElementById("savannahSubject").value,text,date:new Date().toLocaleString()});markActivity();document.getElementById("savannahPrompt").value="";document.getElementById("savannahStatus").textContent="Question saved on this device. It is waiting for the online AI connection.";renderSavannah();};
-document.getElementById("addTopic").onclick=()=>{let name=topicName.value.trim();if(!name){topicStatus.textContent="Enter a topic name.";return}state.topics.push({subject:topicSubject.value,name,done:false});saveState();topicName.value="";topicStatus.textContent="Topic added.";render()};
-document.addEventListener("click",e=>{if(e.target.dataset.deleteNote!==undefined){state.notes.splice(Number(e.target.dataset.deleteNote),1);saveState();render()}if(e.target.dataset.deleteAssessment!==undefined){state.assessments.splice(Number(e.target.dataset.deleteAssessment),1);saveState();render()}if(e.target.dataset.deleteSavannah!==undefined){state.savannahMessages.splice(Number(e.target.dataset.deleteSavannah),1);saveState();renderSavannah()}});
-document.addEventListener("change",e=>{if(e.target.dataset.topic!==undefined){let t=state.topics[Number(e.target.dataset.topic)];t.done=e.target.checked;if(t.done)markActivity();else saveState();render()}});
-function connection(){document.getElementById("connection").textContent=navigator.onLine?"Online · offline-ready":"Offline mode"}
-window.addEventListener("online",connection);window.addEventListener("offline",connection);
-load();render();renderSavannah();connection();
-if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
-</script></body></html>
+
+async function sendSavannah(){
+const prompt=document.getElementById("savannahPrompt");
+const button=document.getElementById("sendSavannah");
+const status=document.getElementById("savannahStatus");
+const subject=document.getElementById("savannahSubject").value;
+const message=prompt.value.trim();
+
+if(!message){
+status.textContent="Write a question first.";
+return;
+}
+if(!navigator.onLine){
+status.textContent="You're offline. You can save this question and send it when you're connected.";
+return;
+}
+
+addChatMessage(message,"learner");
+prompt.value="";
+button.disabled=true;
+button.textContent="Savannah is thinking...";
+status.textContent="Connecting to Savannah...";
+
+try{
+const result=await fetch(SAVANNAH_API+"/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message,subject})
+});
+
+let data={};
+try{data=await result.json();}catch(e){}
+
+if(!result.ok){
+const detail=data.providerStatus?" Provider status: "+data.providerStatus+".":"";
+throw new Error((data.error||"The AI service returned an error.")+detail);
+}
+
+if(!data.reply)throw new Error("Savannah returned an empty response.");
+
+addChatMessage(data.reply,"savannah");
+markActivity();
+status.textContent="Savannah is connected. Keep learning!";
+document.getElementById("savannahConnection").textContent="AI connection responding";
+}catch(error){
+addChatMessage("I couldn't reach my AI service just now. Your question is still available to save offline. Please try again shortly.","savannah");
+status.textContent=error.message||"Connection problem. Please try again.";
+}finally{
+button.disabled=false;
+button.textContent="Send message";
+}
+}
+
+document.querySelectorAll("[data-tab]").forEach(button=>{
+button.addEventListener("click",()=>{
+document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===button));
+document.querySelectorAll(".section").forEach(x=>x.classList.toggle("active",x.id===button.dataset.tab));
+});
+});
+
+document.getElementById("saveQuick").onclick=()=>{
+const topic=document.getElementById("quickTopic").value.trim();
+const content=document.getElementById("quickContent").value.trim();
+if(!topic||!content){
+document.getElementById("noteStatus").textContent="Enter both a topic and some notes.";
+return;
+}
+state.notes.push({subject:document.getElementById("quickSubject").value,topic,content,date:new Date().toLocaleDateString()});
+markActivity();
+document.getElementById("quickTopic").value="";
+document.getElementById("quickContent").value="";
+document.getElementById("noteStatus").textContent="Saved on this device.";
+render();
+};
+
+document.getElementById("saveAssessment").onclick=()=>{
+const score=Number(document.getElementById("score").value);
+const outOf=Number(document.getElementById("outOf").value);
+const name=document.getElementById("assessmentName").value.trim();
+if(!name||!Number.isFinite(score)||!Number.isFinite(outOf)||outOf<=0||score<0||score>outOf){
+document.getElementById("gradeStatus").textContent="Enter a name and valid scores (score cannot exceed total).";
+return;
+}
+state.assessments.push({
+subject:document.getElementById("gradeSubject").value,
+name,score,outOf,
+percent:Math.round(score/outOf*1000)/10,
+date:new Date().toLocaleDateString()
+});
+markActivity();
+document.getElementById("assessmentName").value="";
+document.getElementById("score").value="";
+document.getElementById("outOf").value="";
+document.getElementById("gradeStatus").textContent="Assessment saved.";
+render();
+renderSavannah();
+};
+
+document.getElementById("saveProfile").onclick=()=>{
+state.learnerProfile={
+level:document.getElementById("learnerLevel").value.trim(),
+goal:document.getElementById("learnerGoal").value.trim()
+};
+saveState();
+document.getElementById("profileStatus").textContent="Learning profile saved on this device.";
+};
+
+document.getElementById("saveQuestion").onclick=()=>{
+const text=document.getElementById("savannahPrompt").value.trim();
+if(!text){
+document.getElementById("savannahStatus").textContent="Write a question first.";
+return;
+}
+state.savannahMessages.push({
+subject:document.getElementById("savannahSubject").value,
+text,
+date:new Date().toLocaleString()
+});
+markActivity();
+document.getElementById("savannahPrompt").value="";
+document.getElementById("savannahStatus").textContent="Question saved on this device.";
+renderSavannah();
+};
+
+document.getElementById("sendSavannah").onclick=sendSavannah;
+
+document.getElementById("savannahPrompt").addEventListener("keydown",event=>{
+if(event.key==="Enter"&&!event.shiftKey){
+event.preventDefault();
+sendSavannah();
+}
+});
+
+document.getElementById("addTopic").onclick=()=>{
+const name=document.getElementById("topicName").value.trim();
+if(!name){
+document.getElementById("topicStatus").textContent="Enter a topic name.";
+return;
+}
+state.topics.push({subject:document.getElementById("topicSubject").value,name,done:false});
+saveState();
+document.getElementById("topicName").value="";
+document.getElementById("topicStatus").textContent="Topic added.";
+render();
+renderSavannah();
+};
+
+document.addEventListener("click",event=>{
+const target=event.target;
+if(target.dataset.deleteNote!==undefined){
+state.notes.splice(Number(target.dataset.deleteNote),1);
+saveState();
+render();
+}
+if(target.dataset.deleteAssessment!==undefined){
+state.assessments.splice(Number(target.dataset.deleteAssessment),1);
+saveState();
+render();
+renderSavannah();
+}
+if(target.dataset.deleteSavannah!==undefined){
+state.savannahMessages.splice(Number(target.dataset.deleteSavannah),1);
+saveState();
+renderSavannah();
+}
+});
+
+document.addEventListener("change",event=>{
+if(event.target.dataset.topic!==undefined){
+const topic=state.topics[Number(event.target.dataset.topic)];
+topic.done=event.target.checked;
+if(topic.done)markActivity();else saveState();
+render();
+renderSavannah();
+}
+});
+
+function connection(){
+document.getElementById("connection").textContent=navigator.onLine?"Online · offline-ready":"Offline mode";
+document.getElementById("savannahConnection").textContent=navigator.onLine?"Internet available · AI not yet tested":"Offline · AI unavailable";
+}
+window.addEventListener("online",connection);
+window.addEventListener("offline",connection);
+
+load();
+render();
+renderSavannah();
+connection();
+
+if("serviceWorker" in navigator&&location.protocol.startsWith("http")){
+navigator.serviceWorker.register("./sw.js").catch(()=>{});
+}
+</script>
+</body>
+</html>
